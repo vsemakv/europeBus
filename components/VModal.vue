@@ -125,9 +125,9 @@ import { mapGetters } from "vuex";
                 } else {
                     this.$store.dispatch("thanks/sendForm"); 
                     // console.log("FORM", this.form);
-                    this.$axios.post(
-                        `https://api.telegram.org/bot6282215101:AAF3gNZL2GmRLhiiHobA9kG8ApkosTWpMAg/sendMessage?chat_id=-828369473&text= |==================%0A| ❗️ Нова заявка%0A|==================%0A| 🙎‍♂️ Ім'я: ${this.form.name}%0A| 📞 Телефон: ${this.form.phone}%0A|==================`
-                    );
+                    // this.$axios.post(
+                    //     `https://api.telegram.org/bot/sendMessage?chat_id=-828369473&text= |==================%0A| ❗️ Нова заявка%0A|==================%0A| 🙎‍♂️ Ім'я: ${this.form.name}%0A| 📞 Телефон: ${this.form.phone}%0A|==================`
+                    // );
                     // this.showRes=!this.showRes
                     // this.toggleModal()
 

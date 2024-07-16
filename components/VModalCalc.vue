@@ -244,10 +244,10 @@ export default {
                 this.$store.commit("history/addToList", requesObject)
                 
                 
-                // console.log("FORM", requesObject);
-                this.$axios.post(
-                    `https://api.telegram.org/bot6282215101:AAF3gNZL2GmRLhiiHobA9kG8ApkosTWpMAg/sendMessage?chat_id=-828369473&text= |==================%0A| ❗️ Нова заявка%0A|==================%0A| 🙎‍♂️ Ім'я: ${this.form.name}%0A| 📞 Телефон: ${this.form.phone}%0A|==================%0A| 📌 Подорож з ${this.cityFrom} до ${this.cityTo} %0A|==================%0A|📌 Дата подорожі ${this.dateFrom} %0A|==================%0A|📌 Кількість пасажирів ${this.numPass} %0A|==================`
-                );
+                console.log("FORM", requesObject);
+                // this.$axios.post(
+                //     `https://api.telegram.org/bot/sendMessage?chat_id=-828369473&text= |==================%0A| ❗️ Нова заявка%0A|==================%0A| 🙎‍♂️ Ім'я: ${this.form.name}%0A| 📞 Телефон: ${this.form.phone}%0A|==================%0A| 📌 Подорож з ${this.cityFrom} до ${this.cityTo} %0A|==================%0A|📌 Дата подорожі ${this.dateFrom} %0A|==================%0A|📌 Кількість пасажирів ${this.numPass} %0A|==================`
+                // );
             }
         }
     },
