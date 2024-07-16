@@ -3,6 +3,10 @@ import * as path from 'path'
 const env = require('dotenv').config()
 
 export default {
+  target: 'static',
+  generate: {
+    dir: 'dist' // Это значение по умолчанию, можно не указывать
+  },
   env: env.parsed,
   // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
@@ -111,75 +115,75 @@ export default {
     ]
   },
 
-  hooks: {
-    'build:done': (nuxt) => {
-      if (process.env.NODE_ENV !== 'development') {
-        const buildDir = path.resolve(__dirname, '.nuxt', 'dist', 'client')
-        const files = fs.readdirSync(buildDir)
-        const wordAppendChild = 'appendChild:'
-        const functionChunk = 'function wr(a,b){'
-        for (const f of files) {
-          if (f.endsWith('.js')) {
-            const innerJSPath = path.resolve(buildDir, f)
-            let innerJS = fs.readFileSync(innerJSPath, 'utf8')
-            if (innerJS.includes(wordAppendChild)) {
-              innerJS = innerJS.replace(
-                't.appendChild(e)',
-                'try{t.appendChild(e)} catch(_error){console.log(t,e)}'
-              )
-              fs.writeFileSync(innerJSPath, innerJS)
-              // break;
-            }
-            if (innerJS.includes(functionChunk)) {
-              const innerJSPath = path.resolve(buildDir, f)
-              let innerJS = fs.readFileSync(innerJSPath, 'utf8')
-              if (innerJS.includes(functionChunk)) {
-                innerJS = innerJS.replace(
-                  functionChunk,
-                  functionChunk + 'if(!a||!b){console.log(a,b)};'
-                )
-                fs.writeFileSync(innerJSPath, innerJS)
-              }
-            }
-          }
-        }
-      }
-    },
-  },
+  // hooks: {
+  //   'build:done': (nuxt) => {
+  //     if (process.env.NODE_ENV !== 'development') {
+  //       const buildDir = path.resolve(__dirname, '.nuxt', 'dist', 'client')
+  //       const files = fs.readdirSync(buildDir)
+  //       const wordAppendChild = 'appendChild:'
+  //       const functionChunk = 'function wr(a,b){'
+  //       for (const f of files) {
+  //         if (f.endsWith('.js')) {
+  //           const innerJSPath = path.resolve(buildDir, f)
+  //           let innerJS = fs.readFileSync(innerJSPath, 'utf8')
+  //           if (innerJS.includes(wordAppendChild)) {
+  //             innerJS = innerJS.replace(
+  //               't.appendChild(e)',
+  //               'try{t.appendChild(e)} catch(_error){console.log(t,e)}'
+  //             )
+  //             fs.writeFileSync(innerJSPath, innerJS)
+  //             // break;
+  //           }
+  //           if (innerJS.includes(functionChunk)) {
+  //             const innerJSPath = path.resolve(buildDir, f)
+  //             let innerJS = fs.readFileSync(innerJSPath, 'utf8')
+  //             if (innerJS.includes(functionChunk)) {
+  //               innerJS = innerJS.replace(
+  //                 functionChunk,
+  //                 functionChunk + 'if(!a||!b){console.log(a,b)};'
+  //               )
+  //               fs.writeFileSync(innerJSPath, innerJS)
+  //             }
+  //           }
+  //         }
+  //       }
+  //     }
+  //   },
+  // },
 
-  // target: 'static',
+  // // target: 'static',
 
-  build: {
-    extend(config, { isDev, isClient }) {
-      if (isDev && isClient) {
-        config.module.rules.push({
-          enforce: 'pre',
-          test: /\.(js|vue)$/,
-          // loader: 'eslint-loader',
-          exclude: /(node_modules)/
-        })
-      }
-      if (!isDev) {
-        const enc = 'utf8'
-        const git = path.resolve(__dirname, '.git')
-        const branchHead = fs.readFileSync(`${git}/HEAD`, enc)
-        const branchDir = path.resolve(
-          git,
-          ...branchHead.split('ref:')[1].trim().split('/')
-        )
-        const commit = fs.readFileSync(branchDir, enc).substring(0, 7)
-        config.output.filename =
-          config.output.chunkFilename = `[contenthash:7].js?v=${commit}`
-      }
-      config.module.rules.push({
-        enforce: 'pre',
-        test: /\.txt$/,
-        loader: 'raw-loader',
-        exclude: /(node_modules)/,
-      })
-    },
-    // transpile: ['gsap'],
-  },
+  // build: {
+  //   extend(config, { isDev, isClient }) {
+  //     if (isDev && isClient) {
+  //       config.module.rules.push({
+  //         enforce: 'pre',
+  //         test: /\.(js|vue)$/,
+  //         // loader: 'eslint-loader',
+  //         exclude: /(node_modules)/
+  //       })
+  //     }
+  //     if (!isDev) {
+  //       const enc = 'utf8'
+  //       const git = path.resolve(__dirname, '.git')
+  //       const branchHead = fs.readFileSync(`${git}/HEAD`, enc)
+  //       const branchDir = path.resolve(
+  //         git,
+  //         ...branchHead.split('ref:')[1].trim().split('/')
+  //       )
+  //       const commit = fs.readFileSync(branchDir, enc).substring(0, 7)
+  //       config.output.filename =
+  //         config.output.chunkFilename = `[contenthash:7].js?v=${commit}`
+  //     }
+  //     config.module.rules.push({
+  //       enforce: 'pre',
+  //       test: /\.txt$/,
+  //       loader: 'raw-loader',
+  //       exclude: /(node_modules)/,
+  //     })
+  //   },
+  //   // transpile: ['gsap'],
+  // },
 
   router: {
     linkActiveClass: 'is-active',
@@ -224,10 +228,10 @@ export default {
 	],
 
 
-  server: {
-    // host: process.env.NODE_ENV === 'development' ? '0.0.0.0' : 'localhost',
-    host: process.env.NODE_ENV === 'development' ? '0.0.0.0' : '0.0.0.0',
-  },
+  // server: {
+  //   // host: process.env.NODE_ENV === 'development' ? '0.0.0.0' : 'localhost',
+  //   host: process.env.NODE_ENV === 'development' ? '0.0.0.0' : '0.0.0.0',
+  // },
 
   // Global CSS: https://go.nuxtjs.dev/config-css
   css: ['~/static/scss/main.scss'],
