@@ -1,0 +1,10 @@
+User-agent: *
+Disallow: /hwp/
+Disallow: /*?
+
+Disallow: /thanks/
+Allow: /*.css
+Allow: /*.js
+Allow: /*.png
+Allow: /*.jpg
+Host: https://europebus.com.ua/
